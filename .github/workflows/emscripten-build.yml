@@ -17,6 +17,8 @@ env:
   # Emscripten cache values
   EM_VERSION: 1.39.18
   EM_CACHE_FOLDER: 'emsdk-cache'
+  CC: emcc
+  CXX: emcc
 
 jobs:
   Test:
@@ -90,7 +92,7 @@ jobs:
         # has meaningful results
       - name: Configure CMake
         run: |
-          CC=emcc CXX=emcc cmake -S . -B ./build -G "${{matrix.generator}}" -DCMAKE_BUILD_TYPE:STRING=${{matrix.build_type}} -DENABLE_DEVELOPER_MODE:BOOL=${{matrix.developer_mode}} -DOPT_ENABLE_COVERAGE:BOOL=${{ matrix.build_type == 'Debug' }} -DGIT_SHA:STRING=${{ github.sha }}
+          cmake -S . -B ./build -G "${{matrix.generator}}" -DCMAKE_BUILD_TYPE:STRING=${{matrix.build_type}} -DENABLE_DEVELOPER_MODE:BOOL=${{matrix.developer_mode}} -DOPT_ENABLE_COVERAGE:BOOL=${{ matrix.build_type == 'Debug' }} -DGIT_SHA:STRING=${{ github.sha }}
 
       - name: Build
         # Execute the build.  You can specify a specific target with "--target <NAME>"

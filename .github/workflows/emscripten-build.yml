@@ -90,7 +90,7 @@ jobs:
         # has meaningful results
       - name: Configure CMake
         run: |
-          cmake -S . -B ./build -G "${{matrix.generator}}" \
+          CC=emcc CXX=emcc cmake -S . -B ./build -G "${{matrix.generator}}" \
             -DCMAKE_BUILD_TYPE:STRING=${{matrix.build_type}} \
             -DPATH_TO_CONAN_PROFILE:STRING=$(pwd)/emscripten.profile \
             -DENABLE_DEVELOPER_MODE:BOOL=${{matrix.developer_mode}} \
